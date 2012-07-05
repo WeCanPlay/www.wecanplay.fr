@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WebCanPlay - Exemple PNJ Animation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Wecanplay">
+	<link rel="canonical" href="http://www.wecanplay.fr/exemple_pnjanimation.html" />
+	
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/wecanplay.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+	<script src="js/build-WCP.js"></script>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="imgs/favicon.ico">
+	<link rel="apple-touch-icon" href="imgs/apple-touch-icon-iphone.png" /> 
+	<link rel="apple-touch-icon" sizes="72x72" href="imgs/apple-touch-icon-ipad.png" /> 
+	<link rel="apple-touch-icon" sizes="114x114" href="imgs/apple-touch-icon-iphone4.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="imgs/apple-touch-icon-ipad3.png" />
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-4718334-11']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+</head>
+<body>
+	<nav class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<a class="brand" href="#"><img src="imgs/logo_wecanplay.png" width="50" />WeCanPlay</a>
+			<div class="nav-collapse">
+			<ul class="nav">
+				<li><a href="http://www.wecanplay.fr/">Home</a></li>
+				<li><a href="documentation.html">Documentation</a></li>
+				<li class="active"><a href="exemples.html">Exemples</a></li>
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+			</div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </nav>
+	
+	<div class="container">
+		<div class="jumbotron subhead">
+		<h1>Exemple of sprite animation</h1>
+		<p class="subtitle">Work in progress</p>
+		<div style="border:2px solid #BBB;box-shadow:0 0 5px #999;margin: 30px auto">
+			<canvas id="canvas"></canvas>
+        </div>
+		<script>
+            (function(){
+                var log = WCP.log;
+
+                // Set Canvas and lib' options
+                var cx = 1200;
+                var cy = 400;
+                WCP.setCanvas("canvas", cx, cy);
+                
+                // Create instance of imgManager
+                WCP.Assets.add("sonic", "imgs/sonic.png");
+                WCP.Assets.loadAll();
+                WCP.Assets.onLoadComplete(function() {
+                    var animationSceneDefinition = {
+                        init: function () {
+                            var sonic = new WCP.Sprite(WCP.Assets.get("sonic"), 0, 0);
+                            sonic.setSlice(2, 9, 26, 38);
+                            sonic.animations({
+                                timeRate: 66,
+                                walk: [{
+                                    x: 39,
+                                    y: 0,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 78,
+                                    y: 0,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 117,
+                                    y: 0,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 156,
+                                    y: 0,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 195,
+                                    y: 0,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 234,
+                                    y: 0,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 273,
+                                    y: 0,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 312,
+                                    y: 0,
+                                    width: 39,
+                                    height: 40
+                                }],
+                                wait: [{
+                                    x: 0,
+                                    y: 40,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 0,
+                                    y: 40,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 0,
+                                    y: 40,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 0,
+                                    y: 40,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 0,
+                                    y: 40,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 39,
+                                    y: 40,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 78,
+                                    y: 40,
+                                    width: 39,
+                                    height: 40
+                                }]
+                            });
+                            sonic.setAnimation("wait");
+                            WCP.setTimeout(4000, (function (o) {
+                                return function () {
+                                    o.setAnimation("walk");
+                                    var sonicMove = new WCP.Animation(o);
+                                    sonicMove.animate({x: 500, time: 3000, ease: WCP.Ease.parabolic});
+                                    sonicMove.start();
+                                };
+                            })(sonic));
+                        }
+                    };
+                    var animationScene = new WCP.Scene(animationSceneDefinition);
+                    
+                    WCP.startScene(animationScene);
+                });
+           })();
+           </script>
+	   </div>
+	   </div>
+    </body>
+</html>
