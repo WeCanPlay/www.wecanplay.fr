@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>WebCanPlay - Contact</title>
+    <title>WebCanPlay - About</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Wecanplay">
-	<link rel="canonical" href="http://www.wecanplay.fr/contact.html" />
+    <link rel="canonical" href="http://www.wecanplay.fr/contact.html" />
 	
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/wecanplay.css" rel="stylesheet">
@@ -16,23 +16,23 @@
 
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="imgs/favicon.ico">
-	<link rel="apple-touch-icon" href="imgs/apple-touch-icon-iphone.png" /> 
-	<link rel="apple-touch-icon" sizes="72x72" href="imgs/apple-touch-icon-ipad.png" /> 
-	<link rel="apple-touch-icon" sizes="114x114" href="imgs/apple-touch-icon-iphone4.png" />
-	<link rel="apple-touch-icon" sizes="144x144" href="imgs/apple-touch-icon-ipad3.png" />
-	<script type="text/javascript">
+  	<link rel="apple-touch-icon" href="imgs/apple-touch-icon-iphone.png" /> 
+  	<link rel="apple-touch-icon" sizes="72x72" href="imgs/apple-touch-icon-ipad.png" /> 
+  	<link rel="apple-touch-icon" sizes="114x114" href="imgs/apple-touch-icon-iphone4.png" />
+  	<link rel="apple-touch-icon" sizes="144x144" href="imgs/apple-touch-icon-ipad3.png" />
+  	<script type="text/javascript">
 
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-4718334-11']);
-	  _gaq.push(['_trackPageview']);
+  	  var _gaq = _gaq || [];
+  	  _gaq.push(['_setAccount', 'UA-4718334-11']);
+  	  _gaq.push(['_trackPageview']);
 
-	  (function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
+  	  (function() {
+  		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  	  })();
 
-	</script>
+  	</script>
   </head>
   <body>
     <nav class="navbar navbar-fixed-top">
@@ -47,6 +47,7 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="http://www.wecanplay.fr/">Home</a></li>
+              <li><a href="about.html">About</a></li>
               <li><a href="documentation.html">Documentation</a></li>
               <li><a href="exemples.html">Exemples</a></li>
               <li class="active"><a href="contact.html">Contact</a></li>
@@ -59,7 +60,40 @@
     <div class="container">
 		<div class="jumbotron subhead">
 			<h1>Contact</h1>
-			<p class="subtitle">Work in progress</p>
+			<p class="subtitle">If you have a question or want more information.</p>
+      <div class="well">
+        <h2>Informations.</h2>
+        <ul>
+          <li><a href="https://twitter.com/WebCanvasPlay">Twitter</a></li>
+          <li><a href="mailto://contact@wecanplay.fr">contact@wecanplay.fr</a></li>
+        </ul>
+      </div>
+      <form class="well" action="sendemail.php" method="POST">
+        <h2>Send directly a message.</h2>
+        <fieldset>
+          <div class="control-group">
+            <label class="control-label" for="input01">Name</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="name">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="input01">Email</label>
+            <div class="controls">
+              <input type="email" class="input-xlarge" id="email">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="textarea">Message</label>
+            <div class="controls">
+              <textarea class="span6" id="textarea" rows="6"></textarea>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Send</button>
+          </div>
+        </fieldset>
+      </form>
 		</div>
 		<hr class="soften">
 		<footer>
