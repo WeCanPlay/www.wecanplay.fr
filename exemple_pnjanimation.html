@@ -172,9 +172,9 @@
                             })(sonic));
                         }
                     };
-                    var animationScene = new WCP.Scene(animationSceneDefinition);
+                    var animationScene = new WCP.View(animationSceneDefinition);
                     
-                    WCP.startScene(animationScene);
+                    animationScene.start();
                 });
            })();
            </script>

@@ -38,26 +38,39 @@ function init() {
 
             var copyrightSprite = new WCP.Sprite(WCP.Assets.get("copyright"), -1000, -1000);
             var blackBandSprite1 = new WCP.Sprite(WCP.Assets.get("black-band"), -1000, -1000);
+            blackBandSprite1.setZIndex(100);
             var blackBandSprite2 = new WCP.Sprite(WCP.Assets.get("black-band"), -1000, -1000);
+            blackBandSprite2.setZIndex(100);
             var gameFreakLogoSprite = new WCP.Sprite(WCP.Assets.get("game-freak-logo"), -1000, -1000);
+            gameFreakLogoSprite.setZIndex(99);
             var gameFreakLettersSprite = new WCP.Sprite(WCP.Assets.get("game-freak-letters"), -1000, -1000);
+            gameFreakLettersSprite.setZIndex(99);
             var bigStarSprite = new WCP.Sprite(WCP.Assets.get("big-star"), -1000, -1000);
+            bigStarSprite.setZIndex(101);
             var nidorinaSprite = new WCP.Sprite(WCP.Assets.get("nidorina-sprite"), -1000, -1000);
+            nidorinaSprite.setZIndex(98);
             var ectoplasmaSprite = new WCP.Sprite(WCP.Assets.get("ectoplasma-sprite"), -1000, -1000);
+            ectoplasmaSprite.setZIndex(99);
             var titleSprite = new WCP.Sprite(WCP.Assets.get("pokemon-title"), -1000, -1000);
             var backgroundTitleSprite = new WCP.Sprite(WCP.Assets.get("background-title"), -1000, -1000);
+            backgroundTitleSprite.setZIndex(101);
             var versionSprite = new WCP.Sprite(WCP.Assets.get("version"), -1000, -1000);
             var pokeballSprite = new WCP.Sprite(WCP.Assets.get("pokeball"), -1000, -1000);
+            pokeballSprite.setZIndex(102);
             var pokemonsSprite = new WCP.Sprite(WCP.Assets.get("pokemons"), -10000, -10000);
+            pokemonsSprite.setZIndex(99);
             var whiteScreenSprite = new WCP.Sprite(WCP.Assets.get("white-screen"), -10000, -10000);
+            whiteScreenSprite.setZIndex(105);
             
             var starSprites = new Array();
             for (var i = 0; i < 16; i++) {
                 starSprites[i] = new WCP.Sprite(WCP.Assets.get("star"), -200, -200);
+                starSprites[i].setZIndex(99);
             }
             var darkStarSprites = new Array();
             for (var i = 0; i < 16; i++) {
                 darkStarSprites[i] = new WCP.Sprite(WCP.Assets.get("dark-star"), -200, -200);
+                darkStarSprites[i].setZIndex(99);
             }
 
             // Black band
@@ -232,7 +245,7 @@ function init() {
             timeLine.start();
         }
     };
-    var animationScene = new WCP.Scene(animationSceneDefinition);
+    var animationScene = new WCP.View(animationSceneDefinition);
     
-    WCP.startScene(animationScene);
+    animationScene.start();
 }

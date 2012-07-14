@@ -107,7 +107,7 @@
 						'img': 'imgs/Desert.jpg',                
 					});
 					
-					var main = new WCP.Scene({
+					var main = new WCP.View({
 						init : function() {
 							applyFilter();
 						},
@@ -122,7 +122,7 @@
 						console.timeEnd('filter '+filter);
 					}
 					
-					am.onLoadComplete(function (){WCP.startScene(main);});
+					am.onLoadComplete(function (){main.start()});
 				    am.loadAll();
 					
 					var fo = $("#foption");
