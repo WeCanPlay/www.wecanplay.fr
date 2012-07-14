@@ -6,6 +6,9 @@ if (isset($_POST)) {
 		$msg .= "De la part de ".$_POST['name']." ( ".$_POST['email']." - ".$REMOTE_ADDR." ) \n";
 		$msg .= $_POST['message'];
 		mail("contact@wecanplay.fr", "[form website]", $msg);
+		echo "{msg: 'ok'}";
+		exit();
 	}
 }
-header("Location: http://www.wecanplay.fr/contact.html");
+echo "{msg: 'error'}";
+//header("Location: http://www.wecanplay.fr/contact.html");

@@ -20,6 +20,7 @@
   	<link rel="apple-touch-icon" sizes="72x72" href="imgs/apple-touch-icon-ipad.png" /> 
   	<link rel="apple-touch-icon" sizes="114x114" href="imgs/apple-touch-icon-iphone4.png" />
   	<link rel="apple-touch-icon" sizes="144x144" href="imgs/apple-touch-icon-ipad3.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   	<script type="text/javascript">
 
   	  var _gaq = _gaq || [];
@@ -100,5 +101,24 @@
 			<p>EIP - WeCanPlay  2012</p>
 		</footer>
 	</div> <!-- /container -->
+  <script>
+    $(document).ready(function(){
+      $("form").submit(function(){
+         $.ajax({
+           type: "POST",
+           url: "sendemail.php",
+           data: "name="+$('#name').val()+"&email="+$('#email').val()+"&message="+$('#textarea').val(),
+           success: function(r){
+              if (r.msg === 'error') {
+                $(".control-group").addClass("error");
+              } else {
+                $('form').html("<div class='alert alert-success'>Message send. thank you.</div>");
+              }
+           }
+         });
+        return false;
+      });
+    });
+  </script>
   </body>
 </html>
