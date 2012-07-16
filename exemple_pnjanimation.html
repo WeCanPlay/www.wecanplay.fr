@@ -70,17 +70,56 @@
                 var log = WCP.log;
 
                 // Set Canvas and lib' options
-                var cx = 1200;
-                var cy = 400;
+                var cx = 936;
+                var cy = 50;
                 WCP.setCanvas("canvas", cx, cy);
                 
+                MyEventManager = function () {};
+                WCP.EventTarget.extend(MyEventManager);
+                var myEventManager = new MyEventManager();
+                myEventManager.listen();
+                myEventManager.register(WCP.Animation);
+                
+                var key = null;
+                var sonic;
+                var lock = false;
+                function sonicMove(e) {
+                    key = e;
+                    if (e.which === 39) {
+                        if (lock === false) {
+                            sonic.setAnimation("walk");
+                            lock = true;
+                        }
+                    }
+                    else if (e.which === 37) {
+                        if (lock === false) {
+                            sonic.setAnimation("walkL");
+                            lock = true;
+                        }
+                    }
+                }
+
+                function sonicStop(e) {
+                    if (key.which === 39) {
+                        sonic.setAnimation("wait");
+                    }
+                    else if (key.which === 37) {
+                        sonic.setAnimation("waitL");
+                    }
+                    lock = false;
+                    key = null;
+                }
+
+                window.addEventListener("keydown", sonicMove, false);
+                window.addEventListener("keyup", sonicStop, false);
+
                 // Create instance of imgManager
                 WCP.Assets.add("sonic", "imgs/sonic.png");
                 WCP.Assets.loadAll();
                 WCP.Assets.onLoadComplete(function() {
                     var animationSceneDefinition = {
                         init: function () {
-                            var sonic = new WCP.Sprite(WCP.Assets.get("sonic"), 0, 0);
+                            sonic = new WCP.Sprite(WCP.Assets.get("sonic"), 0, 5);
                             sonic.setSlice(2, 9, 26, 38);
                             sonic.animations({
                                 timeRate: 66,
@@ -125,6 +164,47 @@
                                     width: 39,
                                     height: 40
                                 }],
+                                walkL: [{
+                                    x: 312,
+                                    y: 80,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 273,
+                                    y: 80,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 234,
+                                    y: 80,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 195,
+                                    y: 80,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 156,
+                                    y: 80,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 117,
+                                    y: 80,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 78,
+                                    y: 80,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 80,
+                                    y: 80,
+                                    width: 39,
+                                    height: 40
+                                }],
                                 wait: [{
                                     x: 0,
                                     y: 40,
@@ -160,19 +240,60 @@
                                     y: 40,
                                     width: 39,
                                     height: 40
+                                }],
+                                waitL: [{
+                                    x: 0,
+                                    y: 120,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 0,
+                                    y: 120,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 0,
+                                    y: 120,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 0,
+                                    y: 120,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 0,
+                                    y: 120,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 39,
+                                    y: 120,
+                                    width: 39,
+                                    height: 40
+                                }, {
+                                    x: 78,
+                                    y: 120,
+                                    width: 39,
+                                    height: 40
                                 }]
                             });
-                            sonic.setAnimation("wait");
-                            WCP.setTimeout(4000, (function (o) {
-                                return function () {
-                                    o.setAnimation("walk");
-                                    var sonicMove = new WCP.Animation(o);
-                                    sonicMove.animate({x: 500, time: 3000, ease: WCP.Ease.parabolic});
-                                    sonicMove.start();
-                                };
-                            })(sonic));
+                            sonic.setAnimation("wait");                            
+                        },
+                        
+                        loop: function () {
+                            if (key !== null) {
+                                //console.log(key);
+                                if (key.which === 39) {
+                                    sonic.move(5, 0);
+                                }
+                                else if (key.which === 37) {
+                                    sonic.move(-5, 0);
+                                }
+                            }
                         }
                     };
+                                        
                     var animationScene = new WCP.View(animationSceneDefinition);
                     
                     animationScene.start();
