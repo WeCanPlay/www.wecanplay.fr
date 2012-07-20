@@ -10,6 +10,7 @@
 	
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/wecanplay.css" rel="stylesheet">
+    <link href="css/prettify.css" type="text/css" rel="stylesheet" />
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -21,6 +22,7 @@
 	<link rel="apple-touch-icon" sizes="72x72" href="imgs/apple-touch-icon-ipad.png" /> 
 	<link rel="apple-touch-icon" sizes="114x114" href="imgs/apple-touch-icon-iphone4.png" />
 	<link rel="apple-touch-icon" sizes="144x144" href="imgs/apple-touch-icon-ipad3.png" />
+    <script type="text/javascript" src="js/prettify.js"></script>
 	<script type="text/javascript">
 
 	  var _gaq = _gaq || [];
@@ -44,7 +46,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<a class="brand" href="#"><img src="imgs/logo_wecanplay.png" width="50" />WeCanPlay</a>
+			<a class="brand" href="http://www.wecanplay.fr/"><img src="imgs/logo_wecanplay.png" width="50" />WeCanPlay</a>
 			<div class="nav-collapse">
 			<ul class="nav">
 				<li><a href="http://www.wecanplay.fr/">Home</a></li>
@@ -65,6 +67,32 @@
 		<div style="border:2px solid #BBB;box-shadow:0 0 5px #999;margin: 30px auto">
 			<canvas id="canvas"></canvas>
         </div>
+        <pre class="prettyprint linenums">
+var sonic = new WCP.Sprite(WCP.Assets.get('sonic'), 0, 5);
+// Describ all states of our Sonic
+sonic.animations({
+    timeRate: 66,
+    walk: [{
+        x: 39,
+        y: 0,
+        width: 39,
+        height: 40
+    }, {
+        x: 80,
+        y: 80,
+        width: 39,
+        height: 40
+    }],
+    wait: [{
+        x: 0,
+        y: 40,
+        width: 39,
+        height: 40
+    }, {...}]
+};
+// Call the 'wait' state
+sonic.setAnimation("wait");
+        </pre>
 		<script>
             (function(){
                 var log = WCP.log;
@@ -299,6 +327,8 @@
                     animationScene.start();
                 });
            })();
+
+           prettyPrint();
            </script>
 	   </div>
 	   </div>
