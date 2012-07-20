@@ -68,7 +68,8 @@
 			<canvas id="canvas"></canvas>
         </div>
         <pre class="prettyprint linenums">
-sonic = new WCP.Sprite(WCP.Assets.get('sonic'), 0, 5);
+var sonic = new WCP.Sprite(WCP.Assets.get('sonic'), 0, 5);
+// Describ all states of our Sonic
 sonic.animations({
     timeRate: 66,
     walk: [{
@@ -87,8 +88,9 @@ sonic.animations({
         y: 40,
         width: 39,
         height: 40
-    }]
+    }, {...}]
 };
+// Call the 'wait' state
 sonic.setAnimation("wait");
         </pre>
 		<script>

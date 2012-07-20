@@ -10,6 +10,7 @@
 	
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/wecanplay.css" rel="stylesheet">
+    <link href="css/prettify.css" type="text/css" rel="stylesheet" />
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -38,6 +39,7 @@
 		height: 26px;
 	}
 	</style>
+	<script type="text/javascript" src="js/prettify.js"></script>
 	<script type="text/javascript">
 
 	  var _gaq = _gaq || [];
@@ -98,8 +100,16 @@
 				<div style="border:2px solid #BBB;box-shadow:0 0 5px #999;margin: 30px auto">
 					<canvas id="c1"></canvas>
 				</div>
+				<pre class="prettyprint linenums">
+// Loading image is already done
+var img = WCP.Assets.get('img');
+
+// Apply a contrast filter
+var img_filtered = WCP.Filter.contrast(img, 2);
+
+WCP.Sprite(img_filtered, 0, 0).draw();</pre>
 				<script>	
-					WCP.setCanvas("c1", 940, 705);
+					WCP.setCanvas("c1", 935, 440);
 					WCP.log(true);
 					
 					var sp;
@@ -157,7 +167,7 @@
 							$("#r, #g, #b").mouseup(function(){applyFilter('colorAdjust', [r2.val(), g2.val(), b2.val()]);});
 						}
 					});
-
+					prettyPrint();
 				</script>
 			</div>
 		</div>
