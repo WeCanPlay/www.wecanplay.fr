@@ -1,2 +1,4 @@
 Options -Indexes
 ErrorDocument 404 /404.html
+
+AddType application/x-httpd-php .html .htm

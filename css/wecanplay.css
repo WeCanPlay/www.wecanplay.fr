@@ -3,6 +3,15 @@ body {
 	padding-bottom: 40px;
 	background: #fff url('../imgs/background.png') 0 -9px repeat-x;
 }
+
+canvas {
+  display: block;
+  background: #fff;
+  border: 2px solid #BBB;
+  box-shadow: 0 0 5px #999;
+  margin: 30px auto;
+}
+
 .navbar .nav {
 	font-size: 18px;
 }

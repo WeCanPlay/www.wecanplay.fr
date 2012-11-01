@@ -1,39 +1,60 @@
 WCP.setCanvas("pokemonimation", 160, 144);
-                
-// SoundManager
+
+var progress = function(group, t, l, e){
+    WCP.Draw.rect(0, 70, (160/t)*(l+e), 5).draw();
+    if (e > 0) {
+        console.log(e+" file in error");
+    }
+};   
+
 soundManager = new WCP.SoundManager();
-soundManager.channel('pokemon_animation/sound/opening.mp3', {id: 'opening', preload: true, autoplay: false, loop: true, volume: 100});
-soundManager.channel('pokemon_animation/sound/stars.mp3', {id: 'stars', preload: true, autoplay: false, loop: false, volume: 75});
-soundManager.channel('pokemon_animation/sound/nidorino-attack.mp3', {id: 'nidorino-attack', preload: true, autoplay: false, loop: false, volume: 75});
-soundManager.channel('pokemon_animation/sound/nidorino-bounce1.mp3', {id: 'nidorino-bounce1', preload: true, autoplay: false, loop: false, volume: 75});
-soundManager.channel('pokemon_animation/sound/nidorino-bounce2.mp3', {id: 'nidorino-bounce2', preload: true, autoplay: false, loop: false, volume: 75});
-soundManager.channel('pokemon_animation/sound/ectoplasma-up.mp3', {id: 'ectoplasma-up', preload: true, autoplay: false, loop: false, volume: 75});
-soundManager.channel('pokemon_animation/sound/ectoplasma-hit.mp3', {id: 'ectoplasma-hit', preload: true, autoplay: false, loop: false, volume: 75});
-soundManager.channel('pokemon_animation/sound/pokemon-fall.mp3', {id: 'pokemon-fall', preload: true, autoplay: false, loop: false, volume: 75});
-soundManager.channel('pokemon_animation/sound/slide.mp3', {id: 'slide', preload: true, autoplay: false, loop: false, volume: 75});
 
+WCP.Assets.add({
+    path: 'pokemon_animation/sound/',
+    assets: {
+        'opening': ['opening.mp3','opening.ogg'],
+        'stars': ['stars.mp3','stars.ogg'],
+        'nidorino-attack': ['nidorino-attack.mp3','nidorino-attack.ogg'],
+        'nidorino-bounce1': ['nidorino-bounce1.mp3','nidorino-bounce1.ogg'],
+        'nidorino-bounce2': ['nidorino-bounce2.mp3','nidorino-bounce2.ogg'],
+        'ectoplasma-up': ['ectoplasma-up.mp3','ectoplasma-up.ogg'],
+        'ectoplasma-hit': ['ectoplasma-hit.mp3','ectoplasma-hit.ogg'],
+        'pokemon-fall': ['pokemon-fall.mp3','pokemon-fall.ogg'],
+        'slide': ['slide.mp3','slide.ogg']                    }
+});
+
+WCP.Assets.path('pokemon_animation/')
 // Create instance of imgManager
-WCP.Assets.add("copyright", "pokemon_animation/copyright.png");
-WCP.Assets.add("black-band", "pokemon_animation/black-band.png");
-WCP.Assets.add("game-freak-logo", "pokemon_animation/game-freak-logo.png");
-WCP.Assets.add("game-freak-letters", "pokemon_animation/game-freak-letters.png");
-WCP.Assets.add("big-star", "pokemon_animation/big-star.png");
-WCP.Assets.add("star", "pokemon_animation/star.png");
-WCP.Assets.add("dark-star", "pokemon_animation/dark-star.png");
-WCP.Assets.add("nidorina-sprite", "pokemon_animation/nidorina-sprite.png");
-WCP.Assets.add("ectoplasma-sprite", "pokemon_animation/ectoplasma-sprite.png");
-WCP.Assets.add("pokemon-title", "pokemon_animation/pokemon-title.png");
-WCP.Assets.add("background-title", "pokemon_animation/title-background.png");
-WCP.Assets.add("version", "pokemon_animation/version.png");
-WCP.Assets.add("pokeball", "pokemon_animation/pokeball.png");
-WCP.Assets.add("pokemons", "pokemon_animation/pokemons.png");
-WCP.Assets.add("white-screen", "pokemon_animation/white-screen.png");
-WCP.Assets.loadAll();
-WCP.Assets.onLoadComplete(init());
+WCP.Assets.add("copyright", "copyright.png");
+WCP.Assets.add("black-band", "black-band.png");
+WCP.Assets.add("game-freak-logo", "game-freak-logo.png");
+WCP.Assets.add("game-freak-letters", "game-freak-letters.png");
+WCP.Assets.add("big-star", "big-star.png");
+WCP.Assets.add("star", "star.png");
+WCP.Assets.add("dark-star", "dark-star.png");
+WCP.Assets.add("nidorina-sprite", "nidorina-sprite.png");
+WCP.Assets.add("ectoplasma-sprite", "ectoplasma-sprite.png");
+WCP.Assets.add("pokemon-title", "pokemon-title.png");
+WCP.Assets.add("background-title", "title-background.png");
+WCP.Assets.add("version", "version.png");
+WCP.Assets.add("pokeball", "pokeball.png");
+WCP.Assets.add("pokemons", "pokemons.png");
+WCP.Assets.add("white-screen", "white-screen.png");
 
-function init() {
+WCP.Assets.load('*', progress, function() {
     var animationSceneDefinition = {
-        init: function () {                        
+        init: function () {
+
+            soundManager.channel(WCP.Assets.get('opening'), {id: 'opening', autoplay: false, loop: true, volume: 100});
+            soundManager.channel(WCP.Assets.get('stars'), {id: 'stars', autoplay: false, loop: false, volume: 75});
+            soundManager.channel(WCP.Assets.get('nidorino-attack'), {id: 'nidorino-attack', autoplay: false, loop: false, volume: 75});
+            soundManager.channel(WCP.Assets.get('nidorino-bounce1'), {id: 'nidorino-bounce1', autoplay: false, loop: false, volume: 75});
+            soundManager.channel(WCP.Assets.get('nidorino-bounce2'), {id: 'nidorino-bounce2', autoplay: false, loop: false, volume: 75});
+            soundManager.channel(WCP.Assets.get('ectoplasma-up'), {id: 'ectoplasma-up', autoplay: false, loop: false, volume: 75});
+            soundManager.channel(WCP.Assets.get('ectoplasma-hit'), {id: 'ectoplasma-hit', autoplay: false, loop: false, volume: 75});
+            soundManager.channel(WCP.Assets.get('pokemon-fall'), {id: 'pokemon-fall', autoplay: false, loop: false, volume: 75});
+            soundManager.channel(WCP.Assets.get('slide'), {id: 'slide', autoplay: false, loop: false, volume: 75});
+
             var timeLine = new WCP.TimeLine();
 
             var copyrightSprite = new WCP.Sprite(WCP.Assets.get("copyright"), -1000, -1000);
@@ -134,7 +155,7 @@ function init() {
                 var newClip = starsClip.clone(starSprites[i], darkStarSprites[i], darkStarSprites[i]);
                 newClip.offset(starsData[i].x, starsData[i].y);
                 starsClipList[i] = newClip;
-                timeLine.add(starsData[i].time, starsClipList[i]);
+                timeLine.set(starsData[i].time, starsClipList[i]);
             }
 
             // White Screen
@@ -238,14 +259,14 @@ function init() {
             .repeat();
             titleScreen.add(title, pokeball, backgroundTitle, version, chalamender);
 
-            timeLine.add(1133, copyright);
-            timeLine.add(5266, gameFreakClip);
-            timeLine.add(9666, fight);
-            timeLine.add(20400, titleScreen);
+            timeLine.set(1133, copyright);
+            timeLine.set(5266, gameFreakClip);
+            timeLine.set(9666, fight);
+            timeLine.set(20400, titleScreen);
             timeLine.start();
         }
     };
     var animationScene = new WCP.View(animationSceneDefinition);
     
     animationScene.start();
-}
+});
