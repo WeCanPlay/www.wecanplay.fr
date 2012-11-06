@@ -7,7 +7,12 @@
 	<div class="container">
 		<div class="jumbotron subhead">
 		<h1>Sprite animation</h1>
-		<p class="subtitle">Et maintenant, VIE !</p>
+		<p class="subtitle">
+            Et maintenant, VIE !
+        </p>
+        <?php
+            require('social.php');
+        ?>
 		<canvas id="canvas"></canvas>
         <div class='well'>
             Each state of sonic is describ by many images.
@@ -275,6 +280,7 @@ sonic.setAnimation("wait");
            prettyPrint();
            </script>
 	   </div>
-	   </div>
-    </body>
-</html>
+   </div>
+<?php
+    require('footer.php');
+?>

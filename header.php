@@ -54,7 +54,16 @@
 				<li <?php if ($page == 'index') { echo 'class="active"'; }?> ><a href="http://www.wecanplay.fr/">Home</a></li>
                 <li <?php if ($page == 'about') { echo 'class="active"'; }?> ><a href="about.html">About</a></li>
                 <li <?php if ($page == 'blog') { echo 'class="active"'; }?> ><a href="http://blog.wecanplay.fr">Blog</a></li>
-                <li <?php if ($page == 'documentation') { echo 'class="active"'; }?> ><a href="documentation.html">Documentation</a></li>
+                <li class="dropdown <?php if ($page == 'documentation') { echo 'active'; }?>">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-book icon-white"></i>Learn<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#tutorial">Tutorial</a></li>
+						<li><a href="#documentation.html">User documentation</a></li>
+						<li><a href="http://wiki.wecanplay.fr">API Reference</a></li>
+					</ul>
+	            </li>
 				<li <?php if ($page == 'examples') { echo 'class="active"'; }?> ><a href="examples.html">Examples</a></li>
 				<li <?php if ($page == 'contact') { echo 'class="active"'; }?> ><a href="contact.html">Contact</a></li>
 			</ul>

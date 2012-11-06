@@ -8,6 +8,9 @@
 			<div class="jumbotron subhead">
 				<h1>Image filters</h1>
 				<p class="subtitle">Chose a filter and adjust option.</p>
+		        <?php
+		            require('social.php');
+		        ?>
 				<div id="filter" class="btn-group">
 					<button id="blur" class="btn" data-type='range' data-min="1" data-max="6" data-default="6" data-step="1">Blur</button>
 					<button id="brightness" class="btn" data-type='range' data-min="-150" data-max="150" data-default="120" data-step="5">Brightness</button>
@@ -96,5 +99,6 @@ prettyPrint();
 				</script>
 			</div>
 		</div>
-    </body>
-</html>
+<?php
+    require('footer.php');
+?>

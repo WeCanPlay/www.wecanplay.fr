@@ -12,12 +12,20 @@ canvas {
   margin: 30px auto;
 }
 
+#social {
+  text-align: center;
+}
+
 .navbar .nav {
 	font-size: 18px;
 }
 
 .navbar .nav > li > a {
 	line-height: 44px;
+}
+
+.navbar .nav .dropdown-toggle .caret, .navbar .nav .open.dropdown .caret {
+  margin-top: 20px;
 }
 
 .myhero {

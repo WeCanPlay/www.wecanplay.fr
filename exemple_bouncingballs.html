@@ -8,6 +8,9 @@
         <div class="jumbotron subhead">
             <h1>Bouncing Ball</h1>
             <p class="subtitle">An sprite performance demo</p>
+            <?php
+                require('social.php');
+            ?>
             <div class='row'>
                 <div class='span5'>
                     <div class="btn-group">
@@ -270,5 +273,6 @@ document.getElementById('add50').addEventListener('click', function() {
 });
 
 </script>
-    </body>
-</html>
+<?php
+    require('footer.php');
+?>

@@ -1,11 +1,11 @@
 <?php
-    $title = 'Home';
-    $page = 'index';
-    require('header.php');
+	$title = 'Home';
+	$page = 'index';
+	require('header.php');
 ?>
 
-    <div class="container">
-      <div class="jumbotron masthead">
+	<div class="container">
+	  <div class="jumbotron masthead">
 			<h1>WeCanPlay</h1>
 			<p id="catch-phrase">It's a powerfull <strong>JavaScript library</strong> that helps you to develop <strong>HTML5 games</strong>.</p>
 			<p>WeCanPlay provides a simple and clear solution for the gaming creation on internet by interacting in JavaScript with the Canvas object of HTML5 technology. The library is compatible with all the principal web browsers, without any nuisance unlike other solution requiring a plugin to work.</p>
@@ -14,7 +14,14 @@
 			  <a href="https://github.com/WeCanPlay/WeCanPlay" class="btn btn-primary btn-large vt-p" onclick="_gaq.push(['_trackEvent', 'Jumbotron actions', 'GitHub Project', 'View project on GitHub']);">View project on GitHub</a>
 <!-- 			  <a href="#" class="btn btn-large vt-p" onclick="_gaq.push(['_trackEvent', 'Jumbotron actions', 'Download', 'Download 1.0']);">Download WCP <small>(v1.0)</small></a> -->
 			</p>
-      </div>
+		  <div id='social'>
+			<span class='st_twitter_hcount' displayText='Tweet'></span>
+			<span class='st_googleplus_hcount' displayText='Google +'></span>
+			<span class='st_linkedin_hcount' displayText='LinkedIn'></span>
+			<span class='st_facebook_hcount' displayText='Facebook'></span>
+			<span class='st_email_hcount' displayText='Email'></span>
+		  </div>
+	  </div>
 	  <hr class="soften">
 		<div id="features">
 		  <h1>Amazing Features.</h1>
@@ -103,10 +110,11 @@
 				</div>
 			</div>
 		</div>
-      <hr class="soften">
-      <footer>
-        <p>EIP - WeCanPlay  2012</p>
-      </footer>
-    </div> <!-- /container -->
-  </body>
-</html>
+	  <hr class="soften">
+	  <footer>
+		<p>EIP - WeCanPlay  2012</p>
+	  </footer>
+	</div> <!-- /container -->
+<?php
+    require('footer.php');
+?>
