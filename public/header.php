@@ -56,7 +56,7 @@
                 <li <?php if ($page == 'blog') { echo 'class="active"'; }?> ><a href="http://blog.wecanplay.fr">Blog</a></li>
                 <li class="dropdown <?php if ($page == 'documentation') { echo 'active'; }?>">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-book icon-white"></i>Learn<b class="caret"></b>
+						Learn<b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="#tutorial">Tutorial</a></li>
