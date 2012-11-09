@@ -1,131 +1,128 @@
 var fs = require('fs'),
-async = require('async');
+path = require('path'),
+async = require('async'),
+marked = require('marked');
+
 var uc = require('./user_doc/config.js');
-var marked = require('marked');
-var hl = require("highlight.js").Highlight;
 
-// marked.setOptions({
-//   gfm: true,
-//   pedantic: false,
-//   // callback for code highlighter
-//   highlight: function(code, lang) {
-//     if (lang === 'js') {
-//       return hl(code);
-//     }
-//     return code;
-//   }
-// });
+function mkdirs(path, callback){
+    var path = path.indexOf('\\') >= 0 ? path.replace(/\\/g, '/') : path;//change windows slashes to unix
+    if (path.substr(path.length - 1) == '/') { //remove trailing slash
+        path = path.substr(0, path.length - 1);
+    }
 
-// fs.readFile('user_doc/config.js', function(conf){
-//     uc = JSON.parse(conf);
-//console.log(uc.lang);
-    async.forEach(uc.lang, function(k){
-        var lang = k.lang;
-        var title = k.title;
-        var pages = k.pages;
-        var menu = [];
+    function tryDirectory(dir, cb){
+        //console.log('path is:' + dir );
+        var stat ;
+        try {
+            stat = fs.statSync(dir) ;
 
-        fs.readFile('user_doc/layout.html', 'ascii', function(err, layout){
-            async.waterfall([
-                /* Create menu */
-                function(next) {
-                    pages.forEach(function(p){
-                        menu.push('<li><a href="'+'/doc/'+lang+'/'+p.file+'.html'+'">'+p.title+'</a></li>');
-                    });
-                    next(null);
-                },
-                function(next) {
-                    pages.forEach(function(p){
-                        //console.log('page:',p)
+            // the file exist
+            if (stat.isDirectory()) { //directory exists, no need to check previous directories
+                cb();
+            }
+            else { //file exists at location, cannot make folder
+                return cb(new Error('exists'));
+            }
 
-                        fs.readFile('user_doc/'+lang+'/'+p.file+'.md', 'ascii', function(err, o){
-                            if (err) {
-                                console.error(err);
-                            } else {
-                                var md = marked(o);
-                                //console.log(typeof(layout));
-                                var output = layout.replace('{{content}}', md);
-                                output = output.replace(/{{title}}/g, p.title);
-                                output = output.replace('{{menu}}', menu.join('\n'));
-                                //console.log(output)
+        }
+        catch(err)
+        {
+            if (err) { //the file doesn't exist, try one stage earlier then create
+                //console.log('failed to get stat of ' + dir + ', errno is :' + err.errno);
+                if (err.errno == 2 || err.errno == 32 || err.errno == 34 ) {
 
-                                fs.open('public/doc/'+lang+'/'+p.file+'.html', 'w', function(err, fd){
-                                    if(err) {
-                                        console.error(err);
-                                    } else {
-                                        //console.log(output);
-                                        fs.writeFile('public/doc/'+lang+'/'+p.file+'.html', output, function(err){
-                                            if (err) {
-                                                console.log(err);
-                                            }
-                                        });
+                    //if (dir.lastIndexOf('/') == dir.indexOf('/')) {//only slash remaining is initial slash
+                        //should only be triggered when path is '/' in Unix, or 'C:/' in Windows
+                        //cb(new Error('notfound'));
+                    //}
+                    if (dir.length < 2) {
+                        cb(new Error('invalid_path'));
+                    }
+                    else {
+                        // try one stage earlier then create
+                        tryDirectory(dir.substr(0, dir.lastIndexOf('/')), function(err){
+                            if (err) { //error, return
+                                cb(err);
+                            }
+                            else { //make this directory
+                                try {
+                                    fs.mkdirSync(dir, 0777);
+
+                                    console.log('make dir ok, dir:' + dir);
+                                    cb();
+                                }
+                                catch (error) {
+                                    if (error && error.errno != 17 ) {
+                                        console.log("Failed to make " + dir);
+                                        return cb(new Error('failed'));
                                     }
-                                });
-
+                                }
                             }
                         });
-                    });
+                    }
                 }
-            ]);
-            
+                else { //unkown error
+                    console.log(util.inspect(err, true));
+                    cb(err);
+                }
+            }
+
+        }
+
+    }
+    tryDirectory(path, callback);
+}
+
+
+async.forEach(uc.lang, function(k){
+    var lang = k.lang;
+    var title = k.title;
+    var pages = k.pages;
+    var menu = [];
+
+    fs.readFile('user_doc/layout.html', 'ascii', function(err, layout){
+        async.waterfall([
+            /* Create menu */
+            function(next) {
+                pages.forEach(function(p){
+                    menu.push('<li><a href="'+'/doc/'+lang+'/'+p.file+'.html'+'">'+p.title+'</a></li>');
+                });
+                next(null);
+            },
+            function(next) {
+                pages.forEach(function(p){
+                    //console.log('page:',p)
+                    fs.readFile('user_doc/'+lang+'/'+p.file+'.md', 'ascii', function(err, o){
+                        next(err, o, p);
+                    });
+                });
+            },
+            function(o, p, next) {
+                var md = marked(o);
+
+                var output = layout.replace('{{content}}', md);
+                output = output.replace(/{{title}}/g, p.title);
+                output = output.replace('{{menu}}', menu.join('\n'));
+
+                var path = 'public/doc/'+lang+'/'+p.file+'.html';
+                mkdirs('public/doc/'+lang+'/', function(){
+                    fs.open(path, 'w', function(err, fd){
+                        next(err, path, output);
+                    });
+                });
+            },
+            function(path, output, next) {
+                //console.log(output);
+                fs.writeFile(path, output, function(err){
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        ], function(err){
+            console.error(err);
         });
-
-
+        
     });
-//});
-
-
-
-// var mdoc = require('mdoc');
-
-// mdoc.run({
-
-//     // === required settings === //
-
-//     inputDir : 'doc',
-//     outputDir : 'www',
-
-
-//     // === basic settings === //
-
-//     baseTitle : 'mdoc example advanced settings',
-//     //indexContentPath : '../basic/index.mdown',
-
-
-//     // === advanced settings === //
-
-//     templatePath : 'template',
-
-//     //by default it will look at an `assets_` folder inside the `templatePath`
-//     assetsPath : 'custom_assets',
-
-//     //indexContent will take precedence over `indexContentPath`
-//     indexContent : '<h1>Custom Template</h1><p>Example of a custom template and advanced settings.</p>',
-
-//     mapOutName : function(outputName) {
-//         //change file output name
-//         return outputName.replace('.html', '_doc.html');
-//     },
-
-//     mapTocName : function(fileName, tocObject){
-//         //change the name displayed on the sidebar and on the index TOC
-//         return fileName.replace('_doc.html', '');
-//     },
-
-//     // pattern that matches files that should be parsed
-//     // this is the default value...
-//     include : '*.mdown,*.md,*.markdown',
-
-//     // pattern that matches files that shouldn't be parsed
-//     exclude : 'array.*',
-
-//     filterFiles : function(fileInfo) {
-//         // return `false` to remove files and `true` to keep them
-//         return (/math/).test(fileInfo.input);
-//     },
-
-//     // sets which heading should be treated as a section start (and is used for
-//     // TOC) defaults to `2`
-//     headingLevel : 2
-
-// });
+});
