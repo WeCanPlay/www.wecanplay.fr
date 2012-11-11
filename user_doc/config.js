@@ -2,7 +2,7 @@ var conf = {
 	lang : [
 		{
 			lang: 'en',
-			title: 'User documentation',
+			title: 'Documentation',
 			pages: [
 				{
 					file: 'intro',
@@ -10,17 +10,17 @@ var conf = {
 				},
 				{
 					file: 'view',
-					title: 'View system'
+					title: 'Views'
 				},
 				{
 					file: 'time',
-					title: 'Time Gestion'
+					title: 'Timers & timestamps'
 				}
 			]
 		},
 		{
 			lang: 'fr',
-			title: 'Documentation utilisateur',
+			title: 'Documentation',
 			pages: [
 				{
 					file: 'intro',
@@ -28,11 +28,11 @@ var conf = {
 				},
 				{
 					file: 'view',
-					title: 'Système de vue'
+					title: 'Vues'
 				},
 				{
 					file: 'time',
-					title: 'Gestion du temps'
+					title: 'Timers & timestamps'
 				}
 			]
 		}
