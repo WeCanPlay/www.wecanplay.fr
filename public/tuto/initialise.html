@@ -1,0 +1,80 @@
+<?php
+    $title = 'Initialise WCP';
+    $base_url = '../';
+    $page = 'documentation';
+    require('../header.php');
+?>
+
+<div class="container">
+    <div class="jumbotron subhead">
+        <h1>Initialise WCP</h1>
+    </div>
+
+    <div class="row">
+        <div class="span3">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                <li><a href="/tuto/intro.html">Introduction</a></li>
+<li><a href="/tuto/basichtml.html">Html Structure</a></li>
+<li><a href="/tuto/initialise.html">Initialise WCP</a></li>
+<li><a href="/tuto/firstview.html">firstview</a></li>
+<li><a href="/tuto/loadasset.html">asset</a></li>
+<li><a href="/tuto/handleevenent.html">event</a></li>
+<li><a href="/tuto/movethesnake.html">asdas</a></li>
+<li><a href="/tuto/controletime.html">Controle the time</a></li>
+<li><a href="/tuto/eatgrow.html">Eat & grow</a></li>
+<li><a href="/tuto/finish.html">finish</a></li>
+            </ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span8 well doc">
+            <h2>WeCanPlay Initialisation</h2>
+<p>First, to execute the further code, we just add script tags in the body.
+
+</p>
+<pre><code class="lang-html">&lt;script type=&quot;text/javascript&quot;&gt;
+&lt;/script&gt;</code></pre>
+<p>Now, all the javascript we code have to be added inside this script tags.
+
+</p>
+<p>To use the WeCanPlay framework on a specific canvas, we need to tell to the framework which one we will use.
+In order to simplify the code, we create two global variables that determine the size of the canvas.
+
+</p>
+<pre><code class="lang-JavaScript">CANVAS_WIDTH = 200;
+CANVAS_HEIGHT = 200;
+WCP.setCanvas(&#39;canvas&#39;, CANVAS_WIDTH, CANVAS_HEIGHT);</code></pre>
+<p>Now, at this step we have the following code in our page:
+
+</p>
+<pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Snake&lt;/title&gt;
+        &lt;style&gt;
+            #canvas {
+                border : 1px solid black;
+            }
+        &lt;/style&gt;
+        &lt;script src=&#39;WCP-0.3.js&#39; type=&#39;text/javascript&#39;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            CANVAS_WIDTH = 200;
+            CANVAS_HEIGHT = 200;
+            WCP.setCanvas(&#39;canvas&#39;, CANVAS_WIDTH, CANVAS_HEIGHT);
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        </div>
+    </div>
+    <hr class="soften">
+    <footer>
+        <p>EIP - WeCanPlay  2012</p>
+    </footer>
+</div> <!-- /container -->
+<?php
+    require('../footer.php');
+?>

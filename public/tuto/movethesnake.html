@@ -1,0 +1,258 @@
+<?php
+    $title = 'asdas';
+    $base_url = '../';
+    $page = 'documentation';
+    require('../header.php');
+?>
+
+<div class="container">
+    <div class="jumbotron subhead">
+        <h1>asdas</h1>
+    </div>
+
+    <div class="row">
+        <div class="span3">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                <li><a href="/tuto/intro.html">Introduction</a></li>
+<li><a href="/tuto/basichtml.html">Html Structure</a></li>
+<li><a href="/tuto/initialise.html">Initialise WCP</a></li>
+<li><a href="/tuto/firstview.html">firstview</a></li>
+<li><a href="/tuto/loadasset.html">asset</a></li>
+<li><a href="/tuto/handleevenent.html">event</a></li>
+<li><a href="/tuto/movethesnake.html">asdas</a></li>
+<li><a href="/tuto/controletime.html">Controle the time</a></li>
+<li><a href="/tuto/eatgrow.html">Eat & grow</a></li>
+<li><a href="/tuto/finish.html">finish</a></li>
+            </ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span8 well doc">
+            <h2>Move the snake</h2>
+<p>We gone to use the loop function of the view to make the snake move.
+
+</p>
+<p>In a new function name move and depending on the direction, we add the size of a square on the coordinates.
+
+</p>
+<pre><code class="lang-JavaScript">function move() {
+    if (direction === &#39;UP&#39;) {
+        snake.y -= size;
+    }
+    else if (direction === &#39;DOWN&#39;) {
+        snake.y += size;
+    }
+    else if (direction === &#39;LEFT&#39;) {
+        snake.x -= size;
+    }
+    else if (direction === &#39;RIGHT&#39;) {
+        snake.x += size
+    }
+}</code></pre>
+<p>To make it move by itself, call this function in the loop.
+
+</p>
+<pre><code class="lang-JavaScript">loop: function () {
+    move();
+}</code></pre>
+<p>If you test it now, the snake will disapear on the right. To correct this we will add a check.
+If the next position is below 0 or over the height or the width.
+
+</p>
+<pre><code class="lang-JavaScript">function move() {
+    if (direction === &#39;UP&#39;) {
+        if ((snake.y - size) &gt;= 0) {
+            snake.y -= size;
+        }
+    }
+    else if (direction === &#39;DOWN&#39;) {
+        if ((snake.y + size) &lt; CANVAS_HEIGHT) {
+            snake.y += size;
+        }
+    }
+    else if (direction === &#39;LEFT&#39;) {
+        if ((snake.x - size) &gt;= 0) {
+            snake.x -= size;
+        }
+    }
+    else if (direction === &#39;RIGHT&#39;) {
+        if ((snake.x + size) &lt; CANVAS_WIDTH) {
+            snake.x += size
+        }
+    }
+}</code></pre>
+<p>If you try now, you can see the snake moving fast.
+If you change the direction, the square just stop on the border.
+To add some challenge in the game, we will make the snake cross the screen to the other side.
+
+</p>
+<pre><code class="lang-JavaScript">function move() {
+    if (direction === &#39;UP&#39;) {
+        if ((snake.y - size) &gt;= 0) {
+            snake.y -= size;
+        }
+        else {
+            snake.y = CANVAS_HEIGHT - size;
+        }
+    }
+    else if (direction === &#39;DOWN&#39;) {
+        if ((snake.y + size) &lt; CANVAS_HEIGHT) {
+            snake.y += size;
+        }
+        else {
+            snake.y = 0;
+        }
+    }
+    else if (direction === &#39;LEFT&#39;) {
+        if ((snake.x - size) &gt;= 0) {
+            snake.x -= size;
+        }
+        else {
+            snake.x = CANVAS_WIDTH - size;
+        }
+    }
+    else if (direction === &#39;RIGHT&#39;) {
+        if ((snake.x + size) &lt; CANVAS_WIDTH) {
+            snake.x += size
+        }
+        else {
+            snake.x = 0;
+        }
+    }
+}</code></pre>
+<p>Now you should have this:
+
+</p>
+<pre><code class="lang-Html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Snake&lt;/title&gt;
+        &lt;style&gt;
+            #canvas {
+                border : 1px solid black;
+            }
+        &lt;/style&gt;
+        &lt;script src=&#39;WCP-0.3.js&#39; type=&#39;text/javascript&#39;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            CANVAS_WIDTH = 200;
+            CANVAS_HEIGHT = 200;
+            WCP.setCanvas(&#39;canvas&#39;, CANVAS_WIDTH, CANVAS_HEIGHT);
+            var snake;
+            var apple;
+            var size;
+            var headSprite;
+            var appleSprite;
+            var direction;
+            WCP.Assets.add({
+                path: &#39;ressources/&#39;,
+                assets: {
+                    &#39;head&#39;  : &#39;head.png&#39;,
+                    &#39;body&#39;  : &#39;body.png&#39;,
+                    &#39;apple&#39; : &#39;apple.png&#39;,
+                }
+            });
+            WCP.Assets.load();
+            var game = {
+                init: function () {
+                    snake = {x: 50, y: 50};
+                    apple = {x: 100, y: 100};
+                    size = 10;
+                    headSprite = new WCP.SliceSprite(WCP.Assets.get(&#39;head&#39;), snake.x, snake.y, size, size);
+                    appleSprite = new WCP.SliceSprite(WCP.Assets.get(&#39;apple&#39;), snake.x, snake.y, size, size);
+                    direction = &#39;RIGHT&#39;;
+
+                    WCP.listen();
+                    WCP.keydown(&#39;up&#39;, changeDirection);
+                    WCP.keydown(&#39;down&#39;, changeDirection);
+                    WCP.keydown(&#39;left&#39;, changeDirection);
+                    WCP.keydown(&#39;right&#39;, changeDirection);
+                },
+                loop: function () {
+                    move();
+                },
+                draw: function () {
+                    WCP.clear();
+                    headSprite.position(snake.x, snake.y);
+                    headSprite.draw();
+                    appleSprite.position(apple.x, apple.y);
+                    appleSprite.draw();
+                },
+                destroy: function () {
+                }
+            };
+            var gameView = new WCP.View(game);
+            gameView.start();
+
+            function changeDirection(event) {
+                if (event.which === 37) {
+                    if (direction !== &#39;RIGHT&#39;) {
+                        direction = &#39;LEFT&#39;;
+                    }
+                }
+                else if (event.which === 38) {
+                    if (direction !== &#39;DOWN&#39;) {
+                        direction = &#39;UP&#39;;
+                    }
+                }
+                else if (event.which === 39) {
+                    if (direction !== &#39;LEFT&#39;) {
+                        direction = &#39;RIGHT&#39;;
+                    }
+                }
+                else if (event.which === 40) {
+                    if (direction !== &#39;UP&#39;) {
+                        direction = &#39;DOWN&#39;;
+                    }
+                }
+            }
+            function move() {
+                if (direction === &#39;UP&#39;) {
+                    if ((snake.y - size) &gt;= 0) {
+                        snake.y -= size;
+                    }
+                    else {
+                        snake.y = CANVAS_HEIGHT - size;
+                    }
+                }
+                else if (direction === &#39;DOWN&#39;) {
+                    if ((snake.y + size) &lt; CANVAS_HEIGHT) {
+                        snake.y += size;
+                    }
+                    else {
+                        snake.y = 0;
+                    }
+                }
+                else if (direction === &#39;LEFT&#39;) {
+                    if ((snake.x - size) &gt;= 0) {
+                        snake.x -= size;
+                    }
+                    else {
+                        snake.x = CANVAS_WIDTH - size;
+                    }
+                }
+                else if (direction === &#39;RIGHT&#39;) {
+                    if ((snake.x + size) &lt; CANVAS_WIDTH) {
+                        snake.x += size
+                    }
+                    else {
+                        snake.x = 0;
+                    }
+                }
+            }
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        </div>
+    </div>
+    <hr class="soften">
+    <footer>
+        <p>EIP - WeCanPlay  2012</p>
+    </footer>
+</div> <!-- /container -->
+<?php
+    require('../footer.php');
+?>

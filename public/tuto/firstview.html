@@ -1,0 +1,102 @@
+<?php
+    $title = 'firstview';
+    $base_url = '../';
+    $page = 'documentation';
+    require('../header.php');
+?>
+
+<div class="container">
+    <div class="jumbotron subhead">
+        <h1>firstview</h1>
+    </div>
+
+    <div class="row">
+        <div class="span3">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                <li><a href="/tuto/intro.html">Introduction</a></li>
+<li><a href="/tuto/basichtml.html">Html Structure</a></li>
+<li><a href="/tuto/initialise.html">Initialise WCP</a></li>
+<li><a href="/tuto/firstview.html">firstview</a></li>
+<li><a href="/tuto/loadasset.html">asset</a></li>
+<li><a href="/tuto/handleevenent.html">event</a></li>
+<li><a href="/tuto/movethesnake.html">asdas</a></li>
+<li><a href="/tuto/controletime.html">Controle the time</a></li>
+<li><a href="/tuto/eatgrow.html">Eat & grow</a></li>
+<li><a href="/tuto/finish.html">finish</a></li>
+            </ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span8 well doc">
+            <h2>Create our first view</h2>
+<p>Now, we create a view that will represent a round of a game.
+For more explanation on the view see <a href="http://wiki.wecanplay.fr/doku.php?id=fr:wcp.view">http://wiki.wecanplay.fr/doku.php?id=fr:wcp.view</a>
+
+</p>
+<p>The constructor of the view need an array, with the entries init, loop and destroy.
+Each of these must contains function.
+Init is call at the begining of the view, this serve to set the default value of the variables and set the callback events.
+Loop will be called for each refresh of the canvas, in this one we will code the game engine, like motion and collision. Draw is obviously the function call for the display on the screen. Finally destroy define what will happen at the end of our game.
+
+</p>
+<pre><code class="lang-JavaScript">var game = {
+    init: function () {
+    },
+    loop: function () {
+    },
+    draw: function () {
+    },
+    destroy: function () {
+    }
+};
+var gameView = new WCP.View(game);</code></pre>
+<p>To start the view, just use the function start of the object.
+
+</p>
+<pre><code class="lang-JavaScript">gameView.start();</code></pre>
+<p>Now, the page must look like this:
+
+</p>
+<pre><code class="lang-Html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Snake&lt;/title&gt;
+        &lt;style&gt;
+            #canvas {
+                border : 1px solid black;
+            }
+        &lt;/style&gt;
+        &lt;script src=&#39;WCP-0.3.js&#39; type=&#39;text/javascript&#39;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            CANVAS_WIDTH = 200;
+            CANVAS_HEIGHT = 200;
+            WCP.setCanvas(&#39;canvas&#39;, CANVAS_WIDTH, CANVAS_HEIGHT);
+            var game = {
+                init: function () {
+                },
+                loop: function () {
+                },
+                draw: function () {
+                },
+                destroy: function () {
+                }
+            };
+            var gameView = new WCP.View(game);
+            gameView.start();
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        </div>
+    </div>
+    <hr class="soften">
+    <footer>
+        <p>EIP - WeCanPlay  2012</p>
+    </footer>
+</div> <!-- /container -->
+<?php
+    require('../footer.php');
+?>

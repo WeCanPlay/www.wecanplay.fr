@@ -1,0 +1,32 @@
+<?php
+    $title = '{{title}}';
+    $base_url = '../';
+    $page = 'documentation';
+    require('../header.php');
+?>
+
+<div class="container">
+    <div class="jumbotron subhead">
+        <h1>{{title}}</h1>
+    </div>
+
+    <div class="row">
+        <div class="span3">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                {{menu}}
+            </ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span8 well doc">
+            {{content}}
+        </div>
+    </div>
+    <hr class="soften">
+    <footer>
+        <p>EIP - WeCanPlay  2012</p>
+    </footer>
+</div> <!-- /container -->
+<?php
+    require('../footer.php');
+?>
