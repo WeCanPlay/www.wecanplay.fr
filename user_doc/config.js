@@ -15,6 +15,10 @@ var conf = {
 				{
 					file: 'time',
 					title: 'Time Gestion'
+				},
+				{
+					file: 'animation',
+					title: 'Animation'
 				}
 			]
 		},
@@ -33,6 +37,11 @@ var conf = {
 				{
 					file: 'time',
 					title: 'Gestion du temps'
+				},
+				{
+					file: 'animation',
+					title: 'Animation'
+
 				}
 			]
 		}
