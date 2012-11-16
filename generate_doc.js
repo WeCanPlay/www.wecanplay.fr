@@ -4,6 +4,7 @@ async = require('async'),
 marked = require('marked');
 
 var uc = require('./user_doc/config.js');
+var tuto = require('./tuto/config.js');
 
 function mkdirs(path, callback){
     var path = path.indexOf('\\') >= 0 ? path.replace(/\\/g, '/') : path;//change windows slashes to unix
@@ -125,4 +126,53 @@ async.forEach(uc.lang, function(k){
         });
         
     });
+});
+
+fs.readFile('tuto/layout.html', 'ascii', function(err, layout){
+    var title = tuto.title;
+    var pages = tuto.pages;
+    var menu = [];
+
+    async.waterfall([
+        /* Create menu */
+        function(next) {
+            pages.forEach(function(p){
+                menu.push('<li><a href="'+'/tuto/'+p.file+'.html'+'">'+p.title+'</a></li>');
+            });
+            next(null);
+        },
+        function(next) {
+            pages.forEach(function(p){
+                //console.log('page:',p)
+                fs.readFile('tuto/en/'+p.file+'.md', 'ascii', function(err, o){
+                    next(err, o, p);
+                });
+            });
+        },
+        function(o, p, next) {
+            var md = marked(o);
+
+            var output = layout.replace('{{content}}', md);
+            output = output.replace(/{{title}}/g, p.title);
+            output = output.replace('{{menu}}', menu.join('\n'));
+
+            var path = 'public/tuto/'+p.file+'.html';
+            mkdirs('public/tuto/', function(){
+                fs.open(path, 'w', function(err, fd){
+                    next(err, path, output);
+                });
+            });
+        },
+        function(path, output, next) {
+            //console.log(output);
+            fs.writeFile(path, output, function(err){
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+    ], function(err){
+        console.error(err);
+    });
+    
 });

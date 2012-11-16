@@ -59,7 +59,7 @@
 						Learn<b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#tutorial">Tutorial</a></li>
+						<li><a href="/tuto/intro.html">Tutorial</a></li>
 						<li><a href="/doc/en/intro.html">User documentation</a></li>
 						<li><a href="http://wiki.wecanplay.fr">API Reference</a></li>
 					</ul>
