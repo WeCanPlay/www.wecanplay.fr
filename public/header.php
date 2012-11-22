@@ -65,7 +65,7 @@
 	            </li>
 				<li <?php if ($page == 'examples') { echo 'class="active"'; }?> ><a href="/examples.html" title='Somes examples'>Examples</a></li>
 				<li <?php if ($page == 'contact') { echo 'class="active"'; }?> ><a href="/contact.html" title='Contact us'>Contact</a></li>
-				<li><a href='https://twitter.com/wecanplay-js' title='Our twitter' class="icon-twitter-1"></a></li>
+				<li><a href='https://twitter.com/wecanplay_js' title='Our twitter' class="icon-twitter-1"></a></li>
 				<li><a href='https://github.com/WeCanPlay/WeCanPlay' title='github repository' class="icon-github-01"></a></li>
 			</ul>
 			</div><!--/.nav-collapse -->
