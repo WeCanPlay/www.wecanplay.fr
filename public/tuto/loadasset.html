@@ -1,5 +1,5 @@
 <?php
-    $title = 'asset';
+    $title = 'Use Assets';
     $base_url = '../';
     $page = 'documentation';
     require('../header.php');
@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="jumbotron subhead">
-        <h1>asset</h1>
+        <h1>Use Assets</h1>
     </div>
 
     <div class="row">
@@ -17,8 +17,8 @@
                 <li><a href="/tuto/intro.html">Introduction</a></li>
 <li><a href="/tuto/basichtml.html">Html Structure</a></li>
 <li><a href="/tuto/initialise.html">Initialise WCP</a></li>
-<li><a href="/tuto/firstview.html">firstview</a></li>
-<li><a href="/tuto/loadasset.html">asset</a></li>
+<li><a href="/tuto/firstview.html">Create our first view</a></li>
+<li><a href="/tuto/loadasset.html">Use Assets</a></li>
 <li><a href="/tuto/handleevenent.html">event</a></li>
 <li><a href="/tuto/movethesnake.html">asdas</a></li>
 <li><a href="/tuto/controletime.html">Controle the time</a></li>
@@ -28,22 +28,21 @@
             </div><!--/.well -->
         </div><!--/span-->
         <div class="span8 well doc">
-            <h2>Load assets and create Sprite</h2>
+            <h2>Load Assets</h2>
 <p>Before move the snake, we must see it and we need to see the apple in order to eat it.
-We will use our images for the snake&#39;s head, the snake&#39;s body and the apple.
+For make it very simple, we ll use one image of apple, one sound when the snake eat and the snake will be drawn
 
 </p>
-<p>We start by loading our images, with the assets manager.
+<p>Before load asset, we need to add.
 
 </p>
 <pre><code class="lang-JavaScript">WCP.Assets.add({
     path: &#39;ressources/&#39;,
     assets: {
-        &#39;head&#39;  : &#39;head.png&#39;,
-        &#39;body&#39;  : &#39;body.png&#39;,
         &#39;apple&#39; : &#39;apple.png&#39;,
-}});
-WCP.Assets.load();</code></pre>
+        &#39;bg&#39; : &#39;background.png&#39;,
+        &#39;crunch&#39;   : [&#39;apple-crunch.mp3&#39;, &#39;apple-crunch.ogg&#39;]
+}});</code></pre>
 <p>To print the snake and the apple on the screen, we need their positions.
 We create two variables for this.
 
@@ -61,20 +60,15 @@ We also create a variable for each sprite.
 
 </p>
 <pre><code class="lang-JavaScript">var size;
-var headSprite;
-var bodySprite;
-var appleSprite;</code></pre>
+var head;
+var body;
+var apple;</code></pre>
 <p>And the initialisation.
 
 </p>
-<pre><code class="lang-Html">size = 10;
-headSprite = new WCP.SliceSprite(WCP.Assets.get(&#39;head&#39;), snake.x, snake.y, size, size);
-bodySprite = new WCP.SliceSprite(WCP.Assets.get(&#39;body&#39;), snake.x, snake.y, size, size);
-appleSprite = new WCP.SliceSprite(WCP.Assets.get(&#39;apple&#39;), snake.x, snake.y, size, size);</code></pre>
-<p>Before each drawing of the sprites, we clear the canvas to be sure that no graphic inteference will be printed.
-
-</p>
-<pre><code class="lang-JavaScript">WCP.clear();</code></pre>
+<pre><code class="lang-JavaScript">head = new WCP.Draw.Rect(snake.x, snake.y, size, size, {fillStyle: &quot;green&quot;});
+body = new WCP.Draw.Rect(apple.x, apple.y, size, size, {fillStyle: &quot;red&quot;});
+apple = new WCP.Sprite(WCP.Assets.get(&#39;apple&#39;), apple.x, apple.y);</code></pre>
 <p>We call the function position() of each Sprite to place them, and then we call the draw() function of each one to draw them.
 
 </p>

@@ -27,7 +27,10 @@
         </div>
     </div>
     <script>
+        var url = location.pathname;
         var lang = document.getElementById('lang');
+        lang.value = url.match(/doc\/(\w+)/)[1];
+
         document.getElementById('lang').addEventListener('change', function(e){
             var url = location.pathname;
             var filename = url.substring(url.lastIndexOf('/')+1);

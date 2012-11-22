@@ -1,5 +1,5 @@
 <?php
-    $title = 'firstview';
+    $title = 'Create our first view';
     $base_url = '../';
     $page = 'documentation';
     require('../header.php');
@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="jumbotron subhead">
-        <h1>firstview</h1>
+        <h1>Create our first view</h1>
     </div>
 
     <div class="row">
@@ -17,8 +17,8 @@
                 <li><a href="/tuto/intro.html">Introduction</a></li>
 <li><a href="/tuto/basichtml.html">Html Structure</a></li>
 <li><a href="/tuto/initialise.html">Initialise WCP</a></li>
-<li><a href="/tuto/firstview.html">firstview</a></li>
-<li><a href="/tuto/loadasset.html">asset</a></li>
+<li><a href="/tuto/firstview.html">Create our first view</a></li>
+<li><a href="/tuto/loadasset.html">Use Assets</a></li>
 <li><a href="/tuto/handleevenent.html">event</a></li>
 <li><a href="/tuto/movethesnake.html">asdas</a></li>
 <li><a href="/tuto/controletime.html">Controle the time</a></li>
@@ -28,25 +28,18 @@
             </div><!--/.well -->
         </div><!--/span-->
         <div class="span8 well doc">
-            <h2>Create our first view</h2>
-<p>Now, we create a view that will represent a round of a game.
-For more explanation on the view see <a href="http://wiki.wecanplay.fr/doku.php?id=fr:wcp.view">http://wiki.wecanplay.fr/doku.php?id=fr:wcp.view</a>
+            <p>Now, we create a view that will represent a round of a game.
+For more explanation on the view see <a href="http://www.wecanplay.fr/doc/en/view.html">User documentation</a>
 
 </p>
-<p>The constructor of the view need an array, with the entries init, loop and destroy.
-Each of these must contains function.
-Init is call at the begining of the view, this serve to set the default value of the variables and set the callback events.
-Loop will be called for each refresh of the canvas, in this one we will code the game engine, like motion and collision. Draw is obviously the function call for the display on the screen. Finally destroy define what will happen at the end of our game.
+<p>The constructor of the view nedd an object, who can contain 4 differentes functiond: <em>init</em>, <em>loop</em>, <em>draw</em> and <em>destroy</em>.
+On this tutorial, we just need the 2 first.
 
 </p>
 <pre><code class="lang-JavaScript">var game = {
     init: function () {
     },
     loop: function () {
-    },
-    draw: function () {
-    },
-    destroy: function () {
     }
 };
 var gameView = new WCP.View(game);</code></pre>
@@ -78,10 +71,6 @@ var gameView = new WCP.View(game);</code></pre>
                 init: function () {
                 },
                 loop: function () {
-                },
-                draw: function () {
-                },
-                destroy: function () {
                 }
             };
             var gameView = new WCP.View(game);

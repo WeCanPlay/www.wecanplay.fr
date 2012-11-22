@@ -4,9 +4,8 @@
     <meta charset="utf-8">
     <title>WeCanPlay - <?php echo $title ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Wecanplay">
-	<link rel="canonical" href="" />
+    <meta name="description" content="WeCanPlay is a powerfull JavaScript library that helps you to develop HTML5 games. WeCanPlay provides a simple and clear solution for the gaming creation on internet by interacting in JavaScript with the Canvas object of HTML5 technology. The library is compatible with all the principal web browsers, without any nuisance unlike other solution requiring a plugin to work.">
+    <meta name="author" content="WeCanPlay">
 	
     <link href="<?php if (isset($base_url))  {echo $base_url; }?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php if (isset($base_url))  {echo $base_url; }?>css/wecanplay.css" rel="stylesheet">
@@ -64,8 +63,10 @@
 						<li><a href="http://wiki.wecanplay.fr">API Reference</a></li>
 					</ul>
 	            </li>
-				<li <?php if ($page == 'examples') { echo 'class="active"'; }?> ><a href="/examples.html">Examples</a></li>
-				<li <?php if ($page == 'contact') { echo 'class="active"'; }?> ><a href="/contact.html">Contact</a></li>
+				<li <?php if ($page == 'examples') { echo 'class="active"'; }?> ><a href="/examples.html" title='Somes examples'>Examples</a></li>
+				<li <?php if ($page == 'contact') { echo 'class="active"'; }?> ><a href="/contact.html" title='Contact us'>Contact</a></li>
+				<li><a href='https://twitter.com/wecanplay-js' title='Our twitter' class="icon-twitter-1"></a></li>
+				<li><a href='https://github.com/WeCanPlay/WeCanPlay' title='github repository' class="icon-github-01"></a></li>
 			</ul>
 			</div><!--/.nav-collapse -->
         </div>

@@ -70,7 +70,7 @@ By the end of this step, you must have this code:
 				border : 1px solid black;
 			}
 		</style>
-		<script src='WCP-0.3.js' type='text/javascript'></script>
+		<script src='WCP-1.0.js' type='text/javascript'></script>
 	</head>
 	<body>
 		<canvas id="canvas"></canvas>
@@ -81,40 +81,39 @@ By the end of this step, you must have this code:
 			var snake;
 			var apple;
 			var size;
-                        var headSprite;
-                        var bodySprite;
-                        var appleSprite;
-                        WCP.Assets.add({
-                            path: 'ressources/',
-                            assets: {
-                                'head'  : 'head.png',
-                                'body'  : 'body.png',
-                                'apple' : 'apple.png',
-                            }
-                        });
-                        WCP.Assets.load();
+            var headSprite;
+            var bodySprite;
+            var appleSprite;
+            WCP.Assets.add({
+                path: 'ressources/',
+                assets: {
+                    'head'  : 'head.png',
+                    'body'  : 'body.png',
+                    'apple' : 'apple.png',
+                }
+            });
+
 			var game = {
 				init: function () {
 					snake = {x: 50, y: 50};
 					apple = {x: 100, y: 100};
 					size = 10;
-                                        headSprite = new WCP.SliceSprite(WCP.Assets.get('head'), snake.x, snake.y, size, size);
-                                        appleSprite = new WCP.SliceSprite(WCP.Assets.get('apple'), snake.x, snake.y, size, size);
+					head = new WCP.Draw.Rect(snake.x, snake.y, size, size, {fillStyle: "green"});
+					body = new WCP.Draw.Rect(apple.x, apple.y, size, size, {fillStyle: "red"});
+					apple = new WCP.Sprite(WCP.Assets.get('apple'), apple.x, apple.y, );
+                    
+                    this.add(head);
+                    this.add(apple);
 				},
 				loop: function () {
-				},
-				draw: function () {
-					WCP.clear();
-                                        headSprite.position(snake.x, snake.y);
-                                        headSprite.draw();
-                                        appleSprite.position(apple.x, apple.y);
-                                        appleSprite.draw();
-				},
-				destroy: function () {
+					
 				}
 			};
 			var gameView = new WCP.View(game);
-			gameView.start();
+
+            WCP.Assets.load('', null, function(){
+            	gameView.start();
+            });
 		</script>
 	</body>
 </html>
