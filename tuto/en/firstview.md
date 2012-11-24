@@ -1,8 +1,12 @@
-Now, we create a view that will represent a round of a game.
-For more explanation on the view see [User documentation](http://www.wecanplay.fr/doc/en/view.html)
+Now, we need to create a view.
+**View** can represent a game's round or level.
+For more explanation on the view, watch [User documentation](http://www.wecanplay.fr/doc/en/view.html)
 
-The constructor of the view nedd an object, who can contain 4 differentes functiond: *init*, *loop*, *draw* and *destroy*.
+The constructor of the view need an object, who can contain 4 differentes functions: *init*, *loop*, *draw* and *destroy*.
 On this tutorial, we just need the 2 first.
+
+* *Init* will containt event initialisation, add the first part of the snake to the view.
+* *loop* is the main loop of our game. It ll containt logic for moving the snake.
 
 ```JavaScript
 var game = {
@@ -20,35 +24,11 @@ To start the view, just use the function start of the object.
 gameView.start();
 ```
 
-Now, the page must look like this:
+[Next step](/tuto/drawthehead.html), we will draw some shapes
 
-```Html
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Snake</title>
-		<style>
-			#canvas {
-				border : 1px solid black;
-			}
-		</style>
-		<script src='WCP-0.3.js' type='text/javascript'></script>
-	</head>
-	<body>
-		<canvas id="canvas"></canvas>
-		<script type="text/javascript">
-			CANVAS_WIDTH = 200;
-			CANVAS_HEIGHT = 200;
-			WCP.setCanvas('canvas', CANVAS_WIDTH, CANVAS_HEIGHT);
-			var game = {
-				init: function () {
-				},
-				loop: function () {
-				}
-			};
-			var gameView = new WCP.View(game);
-			gameView.start();
-		</script>
-	</body>
-</html>
-```
+---
+
+### References
+
+* [User documentation View](http://www.wecanplay.fr/doc/en/view.html)
+* [API View](http://wiki.wecanplay.fr/doku.php?id=en:wcp.view)

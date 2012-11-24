@@ -1,0 +1,167 @@
+<?php
+    $title = 'Basic snake';
+    $page = 'examples';
+    require('header.php');
+?>
+
+	<div class="container">
+		<div class="jumbotron subhead">
+		<h1>Basic snake</h1>
+		<p class="subtitle">
+            
+        </p>
+        <?php
+            require('social.php');
+        ?>
+		<canvas id="canvas"></canvas>
+        <div class='well'>
+            An very fast snake for the tutorial
+        </div>
+		<script type="text/javascript">
+			var CANVAS_WIDTH = 200, CANVAS_HEIGHT = 200, SPEED = 80;
+			var snake, apple, size, direction, refresh, body;
+
+			WCP.setCanvas('canvas', CANVAS_WIDTH, CANVAS_HEIGHT);
+
+			function changeDirection(event) {
+				if (event.which === 37) {
+					if (direction !== 'RIGHT') {
+						direction = 'LEFT';
+					}
+				}
+				else if (event.which === 38) {
+					if (direction !== 'DOWN') {
+						direction = 'UP';
+					}
+				}
+				else if (event.which === 39) {
+					if (direction !== 'LEFT') {
+						direction = 'RIGHT';
+					}
+				}
+				else if (event.which === 40) {
+					if (direction !== 'UP') {
+						direction = 'DOWN';
+					}
+				}
+			}
+
+			function move() {
+				if (body.length > 0) {
+					var part = body.pop();
+					part.x = snake.x;
+					part.y = snake.y;
+					body.unshift(part);
+				}
+				if (direction === 'UP') {
+					if ((snake.y - size) >= 0) {
+						snake.y -= size;
+					}
+					else {
+						snake.y = CANVAS_HEIGHT - size;
+					}
+				}
+				else if (direction === 'DOWN') {
+					if ((snake.y + size) < CANVAS_HEIGHT) {
+						snake.y += size;
+					}
+					else {
+						snake.y = 0;
+					}
+				}
+				else if (direction === 'LEFT') {
+					if ((snake.x - size) >= 0) {
+						snake.x -= size;
+					}
+					else {
+						snake.x = CANVAS_WIDTH - size;
+					}
+				}
+				else if (direction === 'RIGHT') {
+					if ((snake.x + size) < CANVAS_WIDTH) {
+						snake.x += size
+					}
+					else {
+						snake.x = 0;
+					}
+				}
+			}
+
+			function eat() {
+				if (snake.x === apple.x && snake.y === apple.y) {
+					WCP.Assets.get('apple-crunch').play();
+					var newpartofbody = new WCP.Draw.Rect(apple.x, apple.y, size, size, {fillStyle: "lightgreen"})
+					gameView.add(newpartofbody)
+					body.push(newpartofbody);
+					
+					var stop = false;
+					while (stop === false) {
+						apple.x = Math.floor(Math.random() * (CANVAS_WIDTH / size)) * size;
+						apple.y = Math.floor(Math.random() * (CANVAS_HEIGHT / size)) * size;
+						stop = true;
+						if (snake.x === apple.x && snake.y === apple.y) {
+							stop = false;
+						}
+						else {
+							for (var n = 0; n < body.length; n++) {
+								if (body[n].x === apple.x && body[n].y === apple.y) {
+									stop = false;
+									break ;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			function collision() {
+				for (var n = 0; n < body.length; n++) {
+					if (snake.x === body[n].x && snake.y === body[n].y) {
+						gameView.stop();
+					}
+				}
+			}
+
+			var game = {
+				init: function () {
+					size = 10;
+					direction = 'RIGHT';
+					refresh = WCP.millitime() + SPEED;
+					body = [];
+
+					WCP.keydown('up', changeDirection);
+					WCP.keydown('down', changeDirection);
+					WCP.keydown('left', changeDirection);
+					WCP.keydown('right', changeDirection);
+
+					snake = new WCP.Draw.Rect(50, 50, size, size, {fillStyle: "green"});
+					apple = new WCP.Draw.Rect(100, 100, size, size, {fillStyle: "red"});
+
+					this.add(snake);
+					this.add(apple);	
+
+				},
+				loop: function () {
+
+					if (WCP.millitime() >= refresh) {
+						move();
+						collision();
+						eat();
+						refresh = WCP.millitime() + SPEED;
+					}
+				}
+			};
+			var gameView = new WCP.View(game);
+
+			WCP.Assets.add('apple-crunch', ['apple-crunch.mp3', 'apple-crunch.ogg']);
+
+			WCP.Assets.load('*', null, function(){
+				gameView.start();
+			});
+			
+           </script>
+	   </div>
+   </div>
+<?php
+    require('footer.php');
+?>

@@ -6,33 +6,24 @@ var conf = {
 			title: 'Introduction'
 		},
 		{
-			file: 'basichtml',
-			title: 'Html Structure'
-		},
-		{
 			file: 'initialise',
-			title: 'Initialise WCP'
+			title: 'Initialise'
 		},
 		{
 			file: 'firstview',
 			title: 'Create our first view'
 		},
-		
 		{
-			file: 'loadasset',
-			title: 'Use Assets'
-		},
-		{
-			file: 'handleevenent',
-			title: 'event'
-		},
-		{
-			file: 'movethesnake',
-			title: 'asdas'
+			file: 'drawthehead',
+			title: 'Draw head'
 		},
 		{
 			file: 'controletime',
-			title: 'Controle the time'
+			title: 'Time Controle'
+		},
+		{
+			file: 'handleevent',
+			title: 'Listen keydown'
 		},
 		{
 			file: 'eatgrow',
@@ -40,7 +31,7 @@ var conf = {
 		},
 		{
 			file: 'finish',
-			title: 'finish'
+			title: 'Everything must end'
 		}
 	]
 };
