@@ -1,7 +1,8 @@
 <?php
     $title = 'Sprite animation';
     $page = 'examples';
-    require('header.php');
+    $base_url = '../';
+    require('../header.php');
 ?>
 
 	<div class="container">
@@ -11,7 +12,7 @@
             Et maintenant, VIE !
         </p>
         <?php
-            require('social.php');
+            require('../social.php');
         ?>
 		<canvas id="canvas"></canvas>
         <div class='well'>
@@ -93,7 +94,7 @@ sonic.setAnimation("wait");
                 window.addEventListener("keyup", sonicStop, false);
 
                 // Create instance of imgManager
-                WCP.Assets.add("sonic", "imgs/sonic.png");
+                WCP.Assets.add("sonic", "ressources/sonic.png");
                 WCP.Assets.load('*', null, function(){
                     var animationSceneDefinition = {
                         init: function () {
@@ -282,5 +283,5 @@ sonic.setAnimation("wait");
 	   </div>
    </div>
 <?php
-    require('footer.php');
+    require('../footer.php');
 ?>

@@ -1,7 +1,8 @@
 <?php
     $title = 'Bouncing balls';
     $page = 'examples';
-    require('header.php');
+    $base_url = '../';
+    require('../header.php');
 ?>
 	
     <div class="container">
@@ -9,7 +10,7 @@
             <h1>Bouncing Ball</h1>
             <p class="subtitle">An sprite performance demo</p>
             <?php
-                require('social.php');
+                require('../social.php');
             ?>
             <div class='row'>
                 <div class='span5'>
@@ -187,7 +188,7 @@ WCP.setCanvas("canvas", CAN_X, CAN_Y);
 WCP.Assets.add({
     path: './',
     assets: {
-        'ball': 'imgs/soccer-ball.png'
+        'ball': 'ressources/soccer-ball.png'
     }
 });
 
@@ -274,5 +275,5 @@ document.getElementById('add50').addEventListener('click', function() {
 
 </script>
 <?php
-    require('footer.php');
+    require('../footer.php');
 ?>

@@ -1,7 +1,8 @@
 <?php
     $title = 'Image filter';
     $page = 'examples';
-    require('header.php');
+	$base_url = '../';
+    require('../header.php');
 ?>
 		
 		<div class="container">
@@ -9,7 +10,7 @@
 				<h1>Image filters</h1>
 				<p class="subtitle">Chose a filter and adjust option.</p>
 		        <?php
-		            require('social.php');
+		            require('../social.php');
 		        ?>
 				<div id="filter" class="btn-group">
 					<button id="blur" class="btn" data-type='range' data-min="1" data-max="6" data-default="6" data-step="1">Blur</button>
@@ -41,7 +42,7 @@ WCP.setCanvas("c1", 935, 446);
 WCP.log(true);
 
 var sp;
-WCP.Assets.add('img','imgs/Desert.jpg');
+WCP.Assets.add('img','ressources/Desert.jpg');
 
 var main = new WCP.View({
 	init : function() {
@@ -100,5 +101,5 @@ prettyPrint();
 			</div>
 		</div>
 <?php
-    require('footer.php');
+    require('../footer.php');
 ?>

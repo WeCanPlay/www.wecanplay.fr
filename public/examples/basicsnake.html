@@ -1,7 +1,8 @@
 <?php
     $title = 'Basic snake';
     $page = 'examples';
-    require('header.php');
+    $base_url = '../';
+    require('../header.php');
 ?>
 
 	<div class="container">
@@ -11,7 +12,7 @@
             
         </p>
         <?php
-            require('social.php');
+            require('../social.php');
         ?>
 		<canvas id="canvas"></canvas>
         <div class='well'>
@@ -153,7 +154,7 @@
 			};
 			var gameView = new WCP.View(game);
 
-			WCP.Assets.add('apple-crunch', ['apple-crunch.mp3', 'apple-crunch.ogg']);
+			WCP.Assets.add('apple-crunch', ['ressources/apple-crunch.mp3', 'ressources/apple-crunch.ogg']);
 
 			WCP.Assets.load('*', null, function(){
 				gameView.start();
@@ -163,5 +164,5 @@
 	   </div>
    </div>
 <?php
-    require('footer.php');
+    require('../footer.php');
 ?>
