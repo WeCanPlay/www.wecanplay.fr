@@ -1,0 +1,158 @@
+<?php
+    $title = 'Sprite animation';
+    $page = 'examples';
+    $base_url = '../';
+    require('../header.php');
+?>
+
+	<div class="container">
+		<div class="jumbotron subhead">
+		<h1>Sprite animation</h1>
+		<p class="subtitle">
+            Et maintenant, VIE !
+        </p>
+        <?php
+            require('../social.php');
+        ?>
+		<div id="animation" class="btn-group">
+			<button id="move" class="btn">Move</button>
+			<button id="shift" class="btn">Shift</button>
+			<button id="ease" class="btn">Ease</button>
+			<button id="clone" class="btn">Clone</button>
+		</div>
+		<canvas id="canvas"></canvas>
+        <div class='well'>
+            Each state of sonic is describ by many images.
+            If you call the state 'walk', WCP will print one by one each images of this state.
+        </div>
+        <pre class="prettyprint linenums">
+        </pre>
+		<script>
+            (function(){
+                // Set Canvas and lib' options
+                CANVAS_WIDTH = 800;
+                CANVAS_HEIGHT = 400;
+                WCP.setCanvas("canvas", CANVAS_WIDTH, CANVAS_HEIGHT);
+                
+				var animationScenes = {};
+				
+				var lock = false;
+				var id = '';
+				var butt = $("#animation button");
+				butt.click(function () {
+					console.log('LOCK(click): ' + lock);
+					if (lock === false) {
+						if (typeof(animationScenes[id]) !== 'undefined') {
+							animationScenes[id].stop();
+						}
+						id = $(this).attr('id');
+						if (typeof(animationScenes[id]) !== 'undefined') {
+							animationScenes[id].start();
+						}
+					}
+				})
+
+                WCP.Assets.add("ball", "ressources/little-soccer-ball.png");
+                WCP.Assets.add("ground", "ressources/ground.png");
+                WCP.Assets.load('*', null, function(){
+					var ball = new WCP.Sprite(WCP.Assets.get("ball"), 1000, 1000);
+					ball.setOrigin(WCP.Sprite.ORIGIN_CENTER);
+					BALL_CX = ball.width / 2;
+					BALL_CY = ball.height / 2;
+					
+					GROUND_X = 0;
+					GROUND_Y = CANVAS_HEIGHT - 20;
+					var ground = new WCP.Sprite(WCP.Assets.get("ground"), GROUND_X, GROUND_Y);
+					ground.width = CANVAS_WIDTH * 2;
+					ground.height = CANVAS_HEIGHT * 2;
+
+					function endAnimation(a) {
+						lock = false;
+						WCP.remove(ball);
+						WCP.remove(ground);
+					}
+
+					animationScenes['move'] = new WCP.View({
+                        init: function () {
+							lock = true;
+							console.log('LOCK(move): ' + lock);
+							WCP.add(ball);
+							WCP.add(ground);
+							var animation = new WCP.Animation(ball);
+							animation.animate({x: -ball.width, y: GROUND_Y - BALL_CY, rotation: 0})
+							.animate({x: CANVAS_WIDTH + ball.width, rotation: WCP.Tools.degresToRadian(720), time: 4000})
+							.execute(endAnimation)
+							.start();
+						}
+                    });
+					animationScenes['shift'] = new WCP.View({
+						init: function () {
+							lock = true;
+							WCP.add(ball);
+							WCP.add(ground);
+							var animation = new WCP.Animation(ball);
+							animation.animate({x: CANVAS_WIDTH + 50, y: GROUND_Y - BALL_CY, rotation: 0})
+							.animate({x: 600, rotation: WCP.Tools.degresToRadian(-360), shift: WCP.Shift.semiCircleReverse, time: 1000})
+							.animate({x: 400, rotation: WCP.Tools.degresToRadian(-720), shift: WCP.Shift.semiCircleReverse, time: 750})
+							.animate({x: 200, rotation: WCP.Tools.degresToRadian(-1080), shift: WCP.Shift.semiCircleReverse, time: 750})
+							.animate({x: 0, rotation: WCP.Tools.degresToRadian(-1440), shift: WCP.Shift.semiCircleReverse, time: 750})
+							.animate({x: -200, rotation: WCP.Tools.degresToRadian(-1800), shift: WCP.Shift.semiCircleReverse, time: 750})
+							.execute(endAnimation)
+							.start();
+						}
+					});
+					animationScenes['ease'] = new WCP.View({
+						init: function () {
+							lock = true;
+							WCP.add(ball);
+							WCP.add(ground);
+							var fall = new WCP.Animation(ball);
+							fall.animate({x: -96, y: 120 - BALL_CY, rotation: 0})
+							.animate({x: 864, y: 420 - BALL_CY, rotation: WCP.Tools.degresToRadian(720), ease: WCP.Ease.parabolic, time: 3000});
+							var rotate = new WCP.Animation(ground);
+							rotate.animate({y: 150, time: 1000})
+							.animate({rotation: WCP.Tools.degresToRadian(17.25), time: 1000})
+							.startAnimation(fall)
+							.waitTime(3500)
+							.animate({x: GROUND_X, y: GROUND_Y, rotation: 0, time: 1000})
+							.execute(endAnimation);
+							rotate.start();
+						}
+					});
+					animationScenes['clone'] = new WCP.View({
+						init: function () {
+							lock = true;
+							WCP.add(ball);
+							WCP.add(ground);
+							var animation = new WCP.Animation(ball);
+							animation.animate({x: CANVAS_WIDTH + 50, y: GROUND_Y - BALL_CY, rotation: 0})
+							.animate({x: 600, rotation: WCP.Tools.degresToRadian(-360), shift: WCP.Shift.semiCircleReverse, time: 500})
+							.animate({x: 400, rotation: WCP.Tools.degresToRadian(-720), shift: WCP.Shift.semiCircleReverse, time: 500})
+							.animate({x: 200, rotation: WCP.Tools.degresToRadian(-1080), shift: WCP.Shift.semiCircleReverse, time: 500})
+							.animate({x: 0, rotation: WCP.Tools.degresToRadian(-1440), shift: WCP.Shift.semiCircleReverse, time: 500})
+							.animate({x: -200, rotation: WCP.Tools.degresToRadian(-1800), shift: WCP.Shift.semiCircleReverse, time: 500});
+							var animation1Sprite = new WCP.Sprite(WCP.Assets.get("ball"), 1000, 1000);
+							animation1Sprite.setOrigin(WCP.Sprite.ORIGIN_CENTER);
+							var animation1 = animation.clone(animation1Sprite);
+							var animation2Sprite = new WCP.Sprite(WCP.Assets.get("ball"), 1000, 1000);
+							animation2Sprite.setOrigin(WCP.Sprite.ORIGIN_CENTER);
+							var animation2 = animation.clone(animation2Sprite);
+							animation2.execute(endAnimation);
+							
+							var timeline = new WCP.TimeLine();
+							timeline.set(0, animation);
+							timeline.set(1000, animation1);
+							timeline.set(2000, animation2);
+							timeline.start();
+						}
+					});
+                });
+           })();
+
+           prettyPrint();
+           </script>
+	   </div>
+   </div>
+<?php
+    require('../footer.php');
+?>
